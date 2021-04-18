@@ -1,0 +1,82 @@
+{
+  "name": "@labs-starter-ecs/backend",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mohamed KEITA",
+    "email": "medesko@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:medesko/labs-starter-ecs.git"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/typings",
+  "scripts": {
+    "start": "node ./dist/",
+    "develop": "run-p generate:watch nodemon types:watch",
+    "test": "echo \"jest\"",
+    "nodemon": "nodemon",
+    "generate": "graphql-codegen",
+    "generate:watch": "graphql-codegen --watch",
+    "build": "npm run generate && npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "types:watch": "tsc --noEmit --watch --preserveWatchOutput",
+    "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps inline --copy-files",
+    "clean": "rimraf ./dist",
+    "lint": "eslint ./ --ext ts"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-typescript": "^7.13.0",
+    "@graphql-codegen/cli": "^1.21.3",
+    "@graphql-codegen/typescript": "^1.21.1",
+    "@graphql-codegen/typescript-resolvers": "^1.19.0",
+    "@types/graphql-iso-date": "^3.4.0",
+    "@types/lodash": "^4.14.168",
+    "@types/mongodb": "^3.6.12",
+    "@types/node": "^14.14.41",
+    "@types/uuid": "^8.3.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "pretty-quick": "^3.1.0",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.3.2",
+    "@graphql-tools/merge": "^6.2.13",
+    "apollo-server": "^2.23.0",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.5.0",
+    "graphql-iso-date": "^3.6.1",
+    "lodash": "^4.17.21",
+    "mongodb": "^3.6.6",
+    "plur": "^4.0.0",
+    "uuid": "^8.3.2"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "dist"
+    ],
+    "testMatch": [
+      "<rootDir>/**/__tests__/?(*.)(spec|test).(t)s?(x)"
+    ],
+    "transformIgnorePatterns": [
+      "[/\\\\](node_modules)[/\\\\].+\\.(js|mjs|ts)$"
+    ],
+    "moduleNameMapper": {
+      "^@src/(.*)": "<rootDir>/$1"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "d.ts"
+    ]
+  }
+}
