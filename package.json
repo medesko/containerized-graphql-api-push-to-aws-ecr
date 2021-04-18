@@ -11,7 +11,8 @@
   "scripts": {
     "develop": "wsrun develop",
     "test": "yarn workspaces run test",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "postinstall": "husky install && rm -rf .git/hooks && ln -s ../.husky .git/hooks"
   },
   "dependencies": { },
   "devDependencies": {
