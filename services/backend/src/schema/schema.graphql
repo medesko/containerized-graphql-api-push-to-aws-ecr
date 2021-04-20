@@ -1,0 +1,22 @@
+### Queries
+type Query {
+  user(userId: String): User
+}
+
+### Mutations
+type Mutation {
+  createUser(User: CeateUserInput!) : User!
+}
+
+### User - 
+type User {
+  userId: String!
+  name: String!
+  email: String!
+}
+
+input CeateUserInput {
+  userId: String!
+  name: String!
+  email: String!
+}

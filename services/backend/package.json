@@ -18,7 +18,7 @@
     "test": "echo \"jest\"",
     "nodemon": "nodemon",
     "generate": "graphql-codegen",
-    "generate:watch": "graphql-codegen --watch",
+    "generate:watch": "graphql-codegen --config codegen.yml --watch",
     "build": "npm run generate && npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "types:watch": "tsc --noEmit --watch --preserveWatchOutput",
