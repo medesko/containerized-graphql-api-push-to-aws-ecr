@@ -1,4 +1,4 @@
-import mongodb, { MongoClientOptions, ObjectID} from 'mongodb';
+import mongodb, { MongoClientOptions} from 'mongodb';
 import { 
   MONGODB_AUTH_MECHANISM, 
   MONGODB_DATABASE, 
