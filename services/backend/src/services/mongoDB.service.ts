@@ -30,7 +30,7 @@ export const init = async () => {
 
   db = client.db(MONGODB_DATABASE);
 
-  db.collection('users').createIndex({ userId: 1 }, { unique: true });
+  db.collection('users').createIndex({ userId: 1, email: 1 }, { unique: true });
 };
 
 export const getMongoDB = () => db;
