@@ -5,9 +5,9 @@ export const resolvers = {
   Query: {
     user: (
       _: any,
-      { id }: { id: string },
+      { userId }: { userId: string },
       { dataSources }: { dataSources: AppDatasources }
-    ) => dataSources.users.getUserById(id),
+    ) => dataSources.users.getUserById(userId),
   },
 
   Mutation: {

@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server';
 import { DatabaseService } from "./services/mongo.service";
 import { typeDefs } from './schema/schema'
 import { Users } from './datasources/users';
+import { resolvers } from './resolvers';
 
 class Server {
   databaseService : DatabaseService;
@@ -25,6 +26,7 @@ class Server {
     
     this.server = new ApolloServer({
       typeDefs,
+      resolvers,
       dataSources: () => dataSources,
       onHealthCheck: async () => 'true',
       ...this.apolloOptions,

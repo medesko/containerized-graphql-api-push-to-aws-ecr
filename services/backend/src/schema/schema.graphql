@@ -5,7 +5,7 @@ type Query {
 
 ### Mutations
 type Mutation {
-  createUser(User: CeateUserInput!) : User!
+  createUser(user: CeateUserInput!) : User!
 }
 
 ### User - 

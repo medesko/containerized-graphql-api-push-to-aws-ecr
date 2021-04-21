@@ -7,7 +7,7 @@ export class Users extends DataSource {
     await init()
   }
 
-  async getUserById(userId: string): Promise<any>  {
+  async getUserById(userId: string): Promise<User>  {
     const result = (
       await getUserCollection()
       .aggregate<User>([
@@ -25,12 +25,12 @@ export class Users extends DataSource {
 
   async createUser(userInput: CeateUserInput) {
     if (!userInput.userId) {
-      throw new Error('Missing projectId');
+      throw new Error('Missing userId');
     }
 
     try {
-      const user = await getUserCollection().insertOne({userId: '', name: '', email: ''});
-      return user;
+      await getUserCollection().insertOne(userInput);
+      return userInput;
     } catch (error) {
       if (error.code && error.code === 11000) {
         throw new Error('Duplicate user');

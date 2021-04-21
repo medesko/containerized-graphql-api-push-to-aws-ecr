@@ -17,6 +17,7 @@ const start = async () => {
     console.log(`🚀 Apollo server is ready at ${url}`);
 
   } catch (error) {
+    console.log(error)
     throw error;
   }
 

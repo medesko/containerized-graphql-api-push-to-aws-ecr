@@ -13,19 +13,21 @@
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint"
   },
-  "dependencies": { },
+  "dependencies": {
+  },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
     "eslint": "^7.24.0",
-    "husky": "^6.0.0",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0",
-    "eslint-plugin-jest": "^24.3.5",
     "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-jest": "^24.3.5",
+    "husky": "^6.0.0",
     "npm-check-updates": "^11.5.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
     "rimraf": "^3.0.2",
-    "wsrun": "^5.2.4",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "wsrun": "^5.2.4"
   },
   "husky": {
     "hooks": {
