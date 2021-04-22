@@ -33,9 +33,8 @@ definitions:
   #     - step: *build-and-push-bakend
 
 pipelines:
-  branches:
-    develop:
-      - parallel:
-        - step: &Build-and-Test
-        - step: &Lint
-      - step: *build-and-push-bakend
+  default:
+    - parallel:
+      - step: &Build-and-Test
+      - step: &Lint
+    - step: *build-and-push-bakend
