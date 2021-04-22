@@ -1,12 +1,12 @@
 image:
   name: atlassian/pipelines-awscli
-
 definitions:
   caches:
     nodecustom: ./node_modules
     yarn: /usr/local/share/.cache/yarn
   steps:
     - step: &Test-step
+        image: node:lts
         name: 'Testing...'
         caches:
           - nodecustom
@@ -15,6 +15,7 @@ definitions:
             - yarn install --frozen-lockfile
             - yarn test
     - step: &Lint-step
+        image: node:lts
         name: 'Linting...'
         caches:
           - nodecustom
