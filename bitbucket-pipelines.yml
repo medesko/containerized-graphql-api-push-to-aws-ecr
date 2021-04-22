@@ -26,15 +26,14 @@ definitions:
           - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
           - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
           - docker push ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
-  # branches:
-  #   develop:
-  #     - step: *build-and-push-bakend
-  #   master:
-  #     - step: *build-and-push-bakend
 
 pipelines:
   branches:
     develop:
-      - step: *build-and-push-bakend
+      - parallel:
+        - step: *Build-and-Test
+        - step: *Lint
+      # - step: *build-and-push-bakend
     master:
       - step: *build-and-push-bakend
+
