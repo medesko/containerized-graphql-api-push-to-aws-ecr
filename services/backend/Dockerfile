@@ -10,7 +10,6 @@ FROM node:14-alpine
 WORKDIR /app
 COPY --from=build /app/services/backend/dist services/backend/dist
 COPY services/backend/package.json /app/services/backend/package.json
-COPY services/common/package.json /app/services/common/package.json
 COPY package.json ./
 COPY yarn.lock ./
 RUN yarn install --production --frozen-lockfile
