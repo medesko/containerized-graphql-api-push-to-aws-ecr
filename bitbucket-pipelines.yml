@@ -3,6 +3,14 @@ image:
 
 definitions:
   steps:
+    - step: &Build-and-Test
+        name: 'Build and Test'
+        script:
+          - echo "Your build and test goes here..."
+    - step: &Lint
+        name: 'Lint'
+        script:
+          - echo "Your linting goes here..."
     - step: &build-and-push-bakend
         name: build and push docker image
         caches:
@@ -11,28 +19,23 @@ definitions:
           - docker
         script:
           # build the Docker image 
-          - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
+          - export BUILD_ID=backend-$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
           # aws login
           - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
           - docker build -f ./services/backend/Dockerfile -t ${AWS_REGISTRY_URL}:$BUILD_ID .
           - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
           - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
           - docker push ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
+  # branches:
+  #   develop:
+  #     - step: *build-and-push-bakend
+  #   master:
+  #     - step: *build-and-push-bakend
 
 pipelines:
-  default:
-    - parallel:
-      - step:
-          name: 'Build and Test'
-          script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-
   branches:
     develop:
-      - step: *build-and-push-bakend
-    master:
+      - parallel:
+          - step: &Build-and-Test
+          - step: &Lint
       - step: *build-and-push-bakend
