@@ -36,6 +36,6 @@ pipelines:
   branches:
     develop:
       - parallel:
-          - step: &Build-and-Test
-          - step: &Lint
+        - step: &Build-and-Test
+        - step: &Lint
       - step: *build-and-push-bakend
