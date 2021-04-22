@@ -2,15 +2,26 @@ image:
   name: atlassian/pipelines-awscli
 
 definitions:
+  caches:
+    nodecustom: ./node_modules
+    yarn: /usr/local/share/.cache/yarn
   steps:
-    - step: &Build-and-Test
-        name: 'Build and Test'
+    - step: &Test-step
+        name: 'Testing...'
+        caches:
+          - nodecustom
+          - yarn
         script:
-          - echo "Your build and test goes here..."
-    - step: &Lint
-        name: 'Lint'
+            - yarn install --frozen-lockfile
+            - yarn test
+    - step: &Lint-step
+        name: 'Linting...'
+        caches:
+          - nodecustom
+          - yarn
         script:
-          - echo "Your linting goes here..."
+            - yarn install --frozen-lockfile
+            - yarn lint
     - step: &build-and-push-bakend
         name: build and push docker image
         caches:
@@ -28,8 +39,8 @@ pipelines:
   branches:
     develop:
       - parallel:
-        - step: *Build-and-Test
-        - step: *Lint
+        - step: *Test-step
+        - step: *Lint-step
       - step: *build-and-push-bakend
     master:
       - step: *build-and-push-bakend
