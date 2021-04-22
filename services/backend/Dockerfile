@@ -4,7 +4,7 @@ COPY services/backend/ ./services/backend
 COPY package.json ./
 COPY yarn.lock ./
 RUN yarn install --frozen-lockfile
-RUN yarn workspace @slabs-starter-ecs/backend build
+RUN yarn workspace @labs-starter-ecs/backend build
 
 FROM node:14-alpine
 WORKDIR /app
