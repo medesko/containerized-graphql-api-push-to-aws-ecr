@@ -1,0 +1,38 @@
+Resources:
+  # ECS Resources
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+  
+  # A security group for the containers we will run in Fargate.
+  # Two rules, allowing network traffic from a public facing load
+  # balancer and from other members of the security group.
+  #
+  # Remove any of the following ingress rules that are not needed.
+  # If you want to make direct requests to a container using its
+  # public IP address you'll need to add a security group rule
+  # to allow traffic from all IP addresses.
+  FargateContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref 'VPC'
+      GroupName: !Join [':', [!Ref 'AWS::StackName', 'fargate-sg']]
+      GroupDescription: Access to the Fargate containers
+  
+    PublicLoadBalancerSG:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        VpcId: !Ref 'VPC'
+        GroupName: !Join [':', [!Ref 'AWS::StackName', 'load-balancer-sg']]
+        GroupDescription: Access to the public facing load balancer
+        SecurityGroupIngress:
+          # Allow access to ALB from anywhere on the internet
+          - CidrIp: 0.0.0.0/0
+            IpProtocol: -1
+
+    EcsSecurityGroupIngressFromPublicALB:
+      Type: AWS::EC2::SecurityGroupIngress
+      Properties:
+        Description: Ingress from the public ALB
+        GroupId: !Ref 'FargateContainerSecurityGroup'
+        IpProtocol: -1
+        SourceSecurityGroupId: !Ref 'PublicLoadBalancerSG'

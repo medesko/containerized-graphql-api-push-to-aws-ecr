@@ -42,7 +42,7 @@ pipelines:
       - parallel:
         - step: *Test-step
         - step: *Lint-step
-      - step: *build-and-push-bakend
+      # - step: *build-and-push-bakend
     master:
       - step: *build-and-push-bakend
 
