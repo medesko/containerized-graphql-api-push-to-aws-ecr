@@ -18,22 +18,19 @@ definitions:
         services:
           - docker
         script:
-          # build the Docker image 
-          - export BUILD_ID=backend-$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
-          # aws login
+          - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
           - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
-          - docker build -f ./services/backend/Dockerfile -t ${AWS_REGISTRY_URL}:$BUILD_ID .
-          - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
-          - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
-          - docker push ${AWS_REGISTRY_URL}:$BITBUCKET_BRANCH
-
+          - docker build -f ./services/backend/Dockerfile -t ${AWS_REGISTRY_URL}:backend-$BUILD_ID .
+          - docker push ${AWS_REGISTRY_URL}:backend-$BUILD_ID
+          - docker tag ${AWS_REGISTRY_URL}:backend-$BUILD_ID ${AWS_REGISTRY_URL}:backend-$BITBUCKET_BRANCH
+          - docker push ${AWS_REGISTRY_URL}:backend-$BITBUCKET_BRANCH
 pipelines:
   branches:
     develop:
       - parallel:
         - step: *Build-and-Test
         - step: *Lint
-      # - step: *build-and-push-bakend
+      - step: *build-and-push-bakend
     master:
       - step: *build-and-push-bakend
 
