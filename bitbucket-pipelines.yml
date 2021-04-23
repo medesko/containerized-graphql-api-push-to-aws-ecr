@@ -42,7 +42,7 @@ pipelines:
       - parallel:
         - step: *Test-step
         - step: *Lint-step
-      # - step: *build-and-push-api
+      - step: *build-and-push-api
     master:
       - step: *build-and-push-api
 
