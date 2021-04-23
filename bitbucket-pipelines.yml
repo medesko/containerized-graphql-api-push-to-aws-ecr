@@ -23,7 +23,7 @@ definitions:
         script:
             - yarn install --frozen-lockfile
             - yarn lint
-    - step: &build-and-push-bakend
+    - step: &build-and-push-api
         name: build and push docker image
         caches:
           - docker
@@ -32,17 +32,17 @@ definitions:
         script:
           - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
           - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
-          - docker build -f ./services/backend/Dockerfile -t ${AWS_REGISTRY_URL}:backend-$BUILD_ID .
-          - docker push ${AWS_REGISTRY_URL}:backend-$BUILD_ID
-          - docker tag ${AWS_REGISTRY_URL}:backend-$BUILD_ID ${AWS_REGISTRY_URL}:backend-$BITBUCKET_BRANCH
-          - docker push ${AWS_REGISTRY_URL}:backend-$BITBUCKET_BRANCH
+          - docker build -f ./services/api/Dockerfile -t ${AWS_REGISTRY_URL}:api-$BUILD_ID .
+          - docker push ${AWS_REGISTRY_URL}:api-$BUILD_ID
+          - docker tag ${AWS_REGISTRY_URL}:api-$BUILD_ID ${AWS_REGISTRY_URL}:api-$BITBUCKET_BRANCH-latest
+          - docker push ${AWS_REGISTRY_URL}:api-$BITBUCKET_BRANCH-latest
 pipelines:
   branches:
     develop:
       - parallel:
         - step: *Test-step
         - step: *Lint-step
-      # - step: *build-and-push-bakend
+      # - step: *build-and-push-api
     master:
-      - step: *build-and-push-bakend
+      - step: *build-and-push-api
 

@@ -1,0 +1,16 @@
+naming: ${self:service}-${self:provider.stage}
+nsDomain: ${env:LBS_NS_DOMAIN, 'labs.freelances.io'}
+defaultRegions: ${file(config/shared-config.json):defaultRegions.${self:provider.stage}}
+domainPrefixes: ${file(config/shared-config.json):domainPrefixes.${self:provider.stage}}
+apiDomainName: ${self:custom.config.domainPrefixes}api.${self:custom.config.nsDomain}
+siteDomainName: ${self:custom.config.domainPrefixes}${self:custom.config.nsDomain}
+event-bridge-source: labs-microservices.eventbridge
+environment:
+  STAGE: ${self:provider.stage}
+  MONGO_URL: ${ssm:/${self:provider.stage}/${self:custom.config.prefixes.appName}/mongodb/url~true}
+  FRONT_END_URL: ${ssm:/${self:provider.stage}/${self:custom.config.prefixes.appName}/frontend/url~true}
+prefixes:
+  appName: 'labs'
+  arn:
+    bucket: 'arn:aws:s3:::'
+    

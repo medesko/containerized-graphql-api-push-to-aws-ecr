@@ -1,0 +1,22 @@
+service: ${self:custom.config.prefixes.appName}-starter-ecs
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 384 # set the maximum memory of the Lambdas in Megabytes
+  timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
+  stage: ${opt:stage, 'develop'}
+  region: ${self:custom.config.defaultRegions}
+  lambdaHashingVersion: 20201221
+  environment:
+    STAGE: ${self:custom.config.environment.STAGE}
+    MONGO_URL: ${self:custom.config.environment.MONGO_URL}
+
+custom:
+  config: ${file(config/config.yml)}
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+resources:
+  - ${file(ecs/elastic-container-service.yml)}
+  - ${file(vpc/virtual-private-cloud.yml)}

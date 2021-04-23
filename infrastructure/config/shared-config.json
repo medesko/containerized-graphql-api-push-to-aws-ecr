@@ -1,0 +1,16 @@
+{
+	"defaultRegions": {
+		"develop": "eu-west-3",
+		"staging": "eu-west-3",
+		"preprod": "eu-west-3",
+		"prod": "eu-west-3",
+		"local": "eu-west-3"
+	},
+	"domainPrefixes": {
+		"develop": "develop.",
+		"staging": "staging.",
+		"preprod": "preprod.",
+		"prod": "",
+		"local": ""
+	}
+}
