@@ -1,4 +1,4 @@
-# Containerized node graphql api push-to-aws-ecr
+# Containerized node graphql api and push to aws ecr with bitbucket pipeline
 Containerized node graphql api with Bitbucket pipeline config for AWS ECR deployments
 
 ## Table of contents
