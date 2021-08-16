@@ -1,5 +1,5 @@
-# Labs-starter-ecs
-
+# Containerized node graphql api push-to-aws-ecr
+Containerized node graphql api with Bitbucket pipeline config for AWS ECR deployments
 
 ## Table of contents
 - [Features](#features)
@@ -7,8 +7,6 @@
 
 ## Features
 
-- self-hosted - use your own infrastructure, own your data
-- integrate with GitHub, Slack or anything else via webhooks
 - works on popular cloud platforms:
   - Docker images
   - Docker compose files
