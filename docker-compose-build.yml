@@ -11,10 +11,10 @@ services:
     build: 
       dockerfile: services/backend/Dockerfile
       context: .
-    image: freelance/labs-starter-ecs-backend:${VERSION:-latest}
+    image: freelance/labs-starter-api:${VERSION:-latest}
     environment: 
       MONGODB_URI: 'mongodb://mongo:27017'
-      MONGODB_DATABASE: 'labs-starter-ecs'
+      MONGODB_DATABASE: 'xxxxxxxxxxx'
     ports:
       - 8000:8000
     depends_on:
