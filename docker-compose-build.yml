@@ -11,7 +11,7 @@ services:
     build: 
       dockerfile: services/backend/Dockerfile
       context: .
-    image: freelance/labs-starter-api:${VERSION:-latest}
+    image: labs-starter-api:${VERSION:-latest}
     environment: 
       MONGODB_URI: 'mongodb://mongo:27017'
       MONGODB_DATABASE: 'xxxxxxxxxxx'
